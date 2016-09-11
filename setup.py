@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='staygold',
-    version='0.0.1',
+    version='0.0.2',
     description='staygold',
     author='otomarukanta',
     author_email='kanta208@gmail.com',
