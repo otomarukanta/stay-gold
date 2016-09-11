@@ -1,26 +1,16 @@
 import requests
 from logging import getLogger
 
-
-def default_download(url):
-    res = requests.get(url)
-    return res.text
+logger = getLogger(__name__)
 
 
-class StayGold():
-
-    logger = getLogger(__name__)
-
-    def __init__(self, select=None, download=default_download,
-                 parse=None, store=print):
-        self.__select = select
-        self.__download = download
-        self.__parse = parse
-        self.__store = store
-
-    def run(self):
-        for url in self.__select():
-            self.logger.debug("Downloading {}".format(url))
-            page = self.__download(url)
-            parsed = self.__parse(page)
-            self.__store(parsed)
+def run(urls=['http://example.com/'],
+        download=lambda x: requests.get(x).text,
+        parse=lambda x: x, store=print):
+    for url in urls:
+        logger.debug("Downloading {} ...".format(url))
+        page = download(url)
+        logger.debug("Parsing ...")
+        parsed = parse(page)
+        logger.debug("Storing ...")
+        store(parsed)
